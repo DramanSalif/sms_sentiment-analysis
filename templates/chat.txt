@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <title>Chat with the Bot</title>
+</head>
+<body>
+    <h1>Chat with the Bot</h1>
+    <form method="post" action="/chat">
+        <input type="text" name="message"/>
+        <input type="submit" value="Send"/>
+    </form>
+    {% if response %}
+    <div>
+        <strong>You:</strong> {{ user_input }}<br>
+        <strong>Bot:</strong> {{ response }}
+    </div>
+    {% endif %}
+</body>
+</html>

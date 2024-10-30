@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentiment Analysis API</title>
+<!-- Include Bootstrap CSS for styling -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-5">SMS Sentiment Analysis API</h1>
+  <p class="lead">Welcome to the SMS Sentiment Analysis API!</p>
+  <form id="analysisForm">
+    <div class="form-group">
+      <label for="smsInput">Enter SMS Text:</label>
+      <textarea class="form-control" id="smsInput" rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" id="analyzeButton">Analyze Sentiment</button>
+  </form>
+  <div id="result" class="mt-4"></div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#analyzeButton').click(function() {
+    var smsText = $('#smsInput').val();
+    $.ajax({
+      type: "POST",
+      url: "/predict",
+      contentType: "application/json;charset=UTF-8",
+      data: JSON.stringify({message: smsText}),
+      success: function(response) {
+        $('#result').html('<strong>Sentiment:</strong> ' + response.prediction);
+      },
+      error: function(error) {
+        console.log(error);
+        $('#result').html('<strong>Error:</strong> ' + error.responseText);
+      }
+    });
+  });
+});
+</script>
+<!-- Include Bootstrap JS for interactivity -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
